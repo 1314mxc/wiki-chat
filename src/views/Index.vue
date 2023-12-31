@@ -1,9 +1,15 @@
 <script setup>
-    import { provide, ref, onMounted } from 'vue'
+    import { provide, inject, ref, onMounted } from 'vue'
     import Header from './Header.vue'
     import Login from './Login.vue'
 
     import { getToken } from '@/utils/auth'
+    import { data, initWebSocket } from '@/utils/socket'
+
+    // const { setList } = inject('send-message') //暂时注释掉，函数降级到当前组件 - 函数，socket返回的东西传递过去，通过这玩意给Message组件
+
+    // initWebSocket('ws://localhost/dev-api/process/websocket/processSocket/zkawsystem 请求url示例');
+    console.log(data)
 
     const token = localStorage.getItem('token') || false
 
@@ -17,10 +23,17 @@
         setText
     })
 
-    // onMounted(() => { // if网页版，注释掉
-    //     myApi.resetSize()
-    // })
+    const item = ref(null)
 
+    // socket返回的东西传递过去，通过这玩意给Message组件
+    const setList = (value) => {
+        item.value = value
+    }
+
+    provide('send-message', {
+        item,
+        setList
+    })
 
 </script>
 

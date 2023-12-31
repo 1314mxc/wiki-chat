@@ -29,6 +29,12 @@ const routes = [
         name: 'imageGallery',
         // component: ImageGallery
         component: () => import('@/views/ImageGallery.vue')
+      },
+      {
+        path: '/message', // 聊天
+        name: 'message',
+        // component: ImageGallery
+        component: () => import('@/views/Message.vue')
       }
     ]
   },

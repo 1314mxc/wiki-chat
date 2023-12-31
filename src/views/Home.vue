@@ -5,12 +5,21 @@
 
   import { onMounted, ref, reactive, nextTick } from 'vue'
   import { getName } from '@/utils/auth'
+  import { getParameterByName } from '@/utils/href'
 
   // const textarea = ref('')
   const text = ref('')
   const showTextBar = ref(false)
 
   let item = null
+
+  // created，判断url里是否有gId和pId，如果有，就要展示“对应的某篇wiki”
+  const currentURL = window.location.href;
+  if(window.location.search.length) {
+    const gId = getParameterByName('gId', currentURL);
+    const pId = getParameterByName('pId', currentURL);
+    console.log(gId, pId)
+  }
 
   // 模拟评论数据，暂时先别删
   const list = reactive([
