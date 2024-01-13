@@ -23,7 +23,11 @@
         setText
     })
 
-    const item = ref(null)
+    const item = ref(0)
+
+    if(data.type && data.type === 'message') {
+        item.value = 1;
+    }
 
     // socket返回的东西传递过去，通过这玩意给Message组件
     const setList = (value) => {
@@ -55,7 +59,7 @@
         .content {
             position: absolute;
             top: 0;
-            left: 100px;
+            left: 127px;
             right: 0;
             bottom: 0;
             border-radius: 14px 0 0 14px;

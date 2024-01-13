@@ -76,7 +76,7 @@ export function setOnmessageMessage(event) {
             //收到服务器信息，心跳重置
             reset();
             break;
-        case 'sendMessage':
+        default:
             data.value = obj.data
             console.log("接收到的服务器消息：", obj.data)
     }

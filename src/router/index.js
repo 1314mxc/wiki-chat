@@ -31,7 +31,7 @@ const routes = [
         component: () => import('@/views/ImageGallery.vue')
       },
       {
-        path: '/message', // 聊天
+        path: '/message', // 消息
         name: 'message',
         // component: ImageGallery
         component: () => import('@/views/Message.vue')

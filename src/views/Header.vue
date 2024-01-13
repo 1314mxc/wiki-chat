@@ -1,11 +1,16 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, inject } from 'vue'
   import { getName, removeToken } from '@/utils/auth'
   import { useRouter } from 'vue-router';
 
-    const router = useRouter();
+  const { item } = inject('send-message')
 
+  const router = useRouter();
+
+  let number = ref(0)
   let showTip = ref(false)
+
+  number.value = Number(item.value) > 999 ? '999+' : Number(item.value)
 
   const checkTip = () => {
     removeToken()
@@ -31,6 +36,15 @@
             知识库
           </div>
         </router-link>
+        <router-link to="/message" custom v-slot="{ isActive, navigate }">
+          <div :class="{ 'active': isActive, 'title': true }" @click="navigate">
+            <el-icon class="icon">
+              <Bell />
+            </el-icon>
+            通知
+            <span class="num" v-show="number > 0">{{ number }}</span>
+          </div>
+        </router-link>
         <router-link to="/imageGallery" custom v-slot="{ isActive, navigate }">
           <div :class="{ 'active': isActive, 'title': true }" @click="navigate">
             <el-icon class="icon">
@@ -41,14 +55,9 @@
         </router-link>
       </div>
       <div class="setting">
-        <el-icon class="setting-i" @click="showCheck">
-          <Setting />
-        </el-icon>
+        <div style="line-height: 32px;">{{ getName() }}</div>
+        <div class="ft-item" @click="checkTip">登出</div>
       </div>
-    </div>
-    <div class="set-tip" v-show="showTip">
-      <div class="ft-item">{{ getName() }}</div>
-      <div class="ft-item" @click="checkTip">登出</div>
     </div>
   </div>
 </template>
@@ -76,16 +85,28 @@
     }
 
     .title {
+      position: relative;
       height: 42px;
       line-height: 42px;
       padding: 8px 12px 0;
       display: flex;
       align-items: center;
-      color: #ccc;
       cursor: pointer;
 
       &.active {
         color: #fff;
+      }
+
+      .num {
+        position: absolute;
+        top: 8px;
+        left: 55%;
+        font-size: 11px;
+        border-radius: 5px;
+        background-color: red;
+        /* height: 11px; */
+        line-height: 12px;
+        padding: 1px 3px;
       }
 
       .icon {
@@ -99,13 +120,16 @@
 
     .setting {
       display: flex;
+      flex-direction: column;
+      padding: 8px 12px 0;
+      color: white;
 
-      .setting-i {
-        width: 22px;
-        color: white;
-        margin-left: 12px;
-        margin-bottom: 8px;
-        cursor: pointer;
+      .ft-item {
+
+        &:hover {
+          opacity: .5;
+          cursor: pointer;
+        }
       }
     }
 

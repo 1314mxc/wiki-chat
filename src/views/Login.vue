@@ -162,7 +162,7 @@
             flex-shrink: 0;
             width: 71%;
             height: 100%;
-            background: url(../assets/IMG_0376.JPG);
+            background: url(../assets/IMG_0027.png);
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
