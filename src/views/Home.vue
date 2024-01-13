@@ -3,9 +3,11 @@
   import coList from './components/co-list/index.vue'
   import hList from './components/history-list/index.vue'
 
-  import { onMounted, ref, reactive, nextTick } from 'vue'
+  import { onMounted, ref, reactive, nextTick, inject } from 'vue'
   import { getName } from '@/utils/auth'
   import { getParameterByName } from '@/utils/href'
+
+  const { plList, clearListObj } = inject('send-message')
 
   // const textarea = ref('')
   const text = ref('')
@@ -15,7 +17,7 @@
 
   // created，判断url里是否有gId和pId，如果有，就要展示“对应的某篇wiki”
   const currentURL = window.location.href;
-  if(window.location.search.length) {
+  if (window.location.search.length) {
     const gId = getParameterByName('gId', currentURL);
     const pId = getParameterByName('pId', currentURL);
     console.log(gId, pId)
@@ -47,6 +49,23 @@
       ]
     }
   ])
+  // socket的消息加到评论/回复中
+  if (JSON.stringify(plList) !== '{}') {
+    if (plList.parent) {
+      for (let i = 0; i < list.length; i++) {
+        if (list[i].name == plList.parent) {
+          list[i].children.push(plList);
+        } else if (list[i].children.length) {
+          for (let j = 0; j < list[i].children.length; j++) {
+            if (list[i].children[j].name == plList.parent) {
+              list[i].children.push(plList);
+            }
+          }
+        }
+      }
+    }
+    clearListObj({})
+  }
 
   // 模拟历史记录数据，暂时先别删
   const list2 = reactive([

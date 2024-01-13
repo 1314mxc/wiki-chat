@@ -1,5 +1,5 @@
 <script setup>
-    import { provide, inject, ref, onMounted } from 'vue'
+    import { provide, inject, ref, reactive, onMounted } from 'vue'
     import Header from './Header.vue'
     import Login from './Login.vue'
 
@@ -24,9 +24,11 @@
     })
 
     const item = ref(0)
+    const plList = reactive({})
 
     if(data.type && data.type === 'message') {
         item.value = 1;
+        plList = data.data;
     }
 
     // socket返回的东西传递过去，通过这玩意给Message组件
@@ -34,9 +36,15 @@
         item.value = value
     }
 
+    const clearListObj = (value) => {
+        plList = value
+    }
+
     provide('send-message', {
         item,
-        setList
+        plList,
+        setList,
+        clearListObj
     })
 
 </script>
