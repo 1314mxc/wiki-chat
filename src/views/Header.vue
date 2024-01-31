@@ -29,7 +29,7 @@
     <div class="header-container">
       <div class="router">
         <router-link to="/home" custom v-slot="{ isActive, navigate }">
-          <div :class="{ 'active': isActive, 'title': true }" @click="navigate">
+          <div :class="{ 'active': isActive, 'title': true, 'font-14': true }" @click="navigate">
             <el-icon class="icon">
               <FolderOpened />
             </el-icon>
@@ -37,7 +37,7 @@
           </div>
         </router-link>
         <router-link to="/message" custom v-slot="{ isActive, navigate }">
-          <div :class="{ 'active': isActive, 'title': true }" @click="navigate">
+          <div :class="{ 'active': isActive, 'title': true, 'font-14': true }" @click="navigate">
             <el-icon class="icon">
               <Bell />
             </el-icon>
@@ -46,7 +46,7 @@
           </div>
         </router-link>
         <router-link to="/imageGallery" custom v-slot="{ isActive, navigate }">
-          <div :class="{ 'active': isActive, 'title': true }" @click="navigate">
+          <div :class="{ 'active': isActive, 'title': true, 'font-14': true }" @click="navigate">
             <el-icon class="icon">
               <ChatDotRound />
             </el-icon>
@@ -55,8 +55,26 @@
         </router-link>
       </div>
       <div class="setting">
-        <div style="line-height: 32px;">{{ getName() }}</div>
-        <div class="ft-item" @click="checkTip">登出</div>
+        <router-link to="/setting" custom v-slot="{ isActive, navigate }">
+          <div :class="{ 'active': isActive, 'title': true, 'font-14': true }" @click="navigate">
+            <el-icon class="icon">
+              <Setting />
+            </el-icon>
+            配置中心
+          </div>
+        </router-link>
+        <div :class="{ 'title': true, 'font-14': true }">
+          <div class="name-i">{{ getName().slice(0, 1) }}</div>
+          {{ getName() }}
+        </div>
+        <div :class="{ 'title': true, 'font-14': true }" @click="checkTip">
+          <el-icon class="icon">
+            <SwitchButton />
+          </el-icon>
+          退出
+        </div>
+        <!-- <div style="line-height: 32px;">{{ getName() }}</div>background-color: #009cad;
+        <div class="ft-item" @click="checkTip">登出</div> -->
       </div>
     </div>
   </div>
@@ -66,7 +84,7 @@
   .header-box {
     width: 100%;
     height: 100vh;
-    background: #409eff;
+    /* background: #409eff; */
   }
 
   .header-container {
@@ -76,7 +94,8 @@
     /* background: #1e90ff; */
     width: 120px;
     height: 100vh;
-    padding-top: 3px;
+    border-right: 1px solid #dfe1e5;
+    user-select: none;
 
     .router {
       display: flex;
@@ -86,15 +105,16 @@
 
     .title {
       position: relative;
-      height: 42px;
-      line-height: 42px;
-      padding: 8px 12px 0;
+      height: 36px;
+      line-height: 36px;
+      padding: 6px 12px 0;
       display: flex;
       align-items: center;
       cursor: pointer;
 
       &.active {
-        color: #fff;
+        color: #409eff;
+        background-color: #F0F6FF;
       }
 
       .num {
@@ -121,8 +141,29 @@
     .setting {
       display: flex;
       flex-direction: column;
-      padding: 8px 12px 0;
-      color: white;
+      /* padding: 8px 0 0; */
+      /* color: white; */
+
+      .name-i {
+        position: relative;
+        color: white;
+        font-size: 10px;
+        width: 16px;
+        text-align: center;
+        margin-right: 4px;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 9px;
+          right: 0px;
+          bottom: 10px;
+          left: 0px;
+          background-color: #009cad;
+          z-index: -1;
+          border-radius: 14px;
+        }
+      }
 
       .ft-item {
 
@@ -154,9 +195,9 @@
       padding: 6px 2px;
       border-radius: 4px;
       margin-top: 2px;
-      
+
       &:not(:last-of-type) {
-        border-bottom: 1px solid rgba(0,0,0,.1);
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
       }
 
       &:hover {

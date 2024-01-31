@@ -63,6 +63,7 @@
         position: relative;
         width: 100%;
         height: 100vh;
+        overflow: hidden;
 
         .content {
             position: absolute;
@@ -70,7 +71,6 @@
             left: 127px;
             right: 0;
             bottom: 0;
-            border-radius: 14px 0 0 14px;
             background-color: white;
             overflow: hidden;
         }

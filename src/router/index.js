@@ -35,6 +35,12 @@ const routes = [
         name: 'message',
         // component: ImageGallery
         component: () => import('@/views/Message.vue')
+      },
+      {
+        path: '/setting', // 配置中心
+        name: 'setting',
+        // component: ImageGallery
+        component: () => import('@/views/Setting.vue')
       }
     ]
   },
