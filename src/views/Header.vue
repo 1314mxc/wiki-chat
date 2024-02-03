@@ -1,6 +1,6 @@
 <script setup>
   import { ref, inject } from 'vue'
-  import { getName, removeToken } from '@/utils/auth'
+  import { getName, removeToken, removeGroup } from '@/utils/auth'
   import { useRouter } from 'vue-router';
 
   const { item } = inject('send-message')
@@ -8,18 +8,13 @@
   const router = useRouter();
 
   let number = ref(0)
-  let showTip = ref(false)
 
   number.value = Number(item.value) > 999 ? '999+' : Number(item.value)
 
   const checkTip = () => {
     removeToken()
-    showTip.value = !showTip.value;
+    removeGroup()
     router.push('/login')
-  }
-
-  const showCheck = () => {
-    showTip.value = !showTip.value;
   }
 
 </script>
@@ -50,7 +45,7 @@
             <el-icon class="icon">
               <ChatDotRound />
             </el-icon>
-            信鸽
+            Chat
           </div>
         </router-link>
       </div>

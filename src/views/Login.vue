@@ -1,6 +1,6 @@
 <script setup>
     import { onMounted, ref, reactive } from 'vue'
-    import { setToken, setName, getToken } from '@/utils/auth'
+    import { setToken, setName, getToken, setGroup } from '@/utils/auth'
     import { useRouter, useRoute } from 'vue-router'
 
     import md5 from "js-md5"
@@ -81,6 +81,7 @@
         // 拿到值
         // 存储
         setToken('123') //模拟数据
+        setGroup(usr.group)
         setName(usr.name)
 
         router.push(redirectUrl.value);

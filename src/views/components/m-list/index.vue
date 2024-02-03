@@ -1,12 +1,14 @@
 <script setup>
     import { onMounted, ref } from 'vue'
+
+    import { getGroup } from '@/utils/auth'
 </script>
 
 <template>
-    <section class="msg-list">
-        <div class="item">
+    <section class="ms-list">
+        <div class="item check">
             <div class="line">
-                <div class="title">xxx</div>
+                <div class="title">{{ getGroup() }}</div>
                 <div class="time">2023-12-4</div>
             </div>
             <div class="msg">xxxxxxxxxxxxxxxxxxxxxxxx</div>
@@ -15,7 +17,7 @@
 </template>
 
 <style lang="scss">
-    .msg-list {
+    .ms-list {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -25,7 +27,9 @@
             width: 100%;
             height: 54px;
             padding: 8px 6px;
-            border-bottom: 1px solid blue;
+            border-bottom: 1px solid #f7f8fa;
+
+            &.check {}
 
             .line {
                 display: flex;

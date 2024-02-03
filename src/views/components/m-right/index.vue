@@ -1,5 +1,9 @@
 <script setup>
-    import { onMounted, ref, reactive } from 'vue'
+    import { onMounted, ref, reactive, provide } from 'vue'
+    import Ms from './ms.vue'
+
+    import { setListArr, addListItem } from './index.js'
+    import { getName } from '@/utils/auth'
 
     const textarea = ref('')
     const popupData = reactive({
@@ -13,17 +17,6 @@
 
     let x = 0, y = 0;
     let _text = "";
-
-    // const handleRightClick = (event) => {
-    //     event.preventDefault(); // 阻止默认右键菜单
-
-    //     // 获取鼠标右键按下时的位置信息
-    //     popupData.popupTop = event.clientY;
-    //     popupData.popupLeft = event.clientX;
-
-    //     console.log(popupData)
-
-    // }
 
     const handleCheck = (val) => {
         if(val == 1) {
@@ -62,25 +55,87 @@
         })
     }
 
+    // 消息列表
+    const msList = reactive([
+        {img: [1], text: "", status: 'send', id: '2', name: '33'},
+        {img: [], text: "这是测试？", status: 'send', id: '2', name: '33'},
+        {img: [1,1,1], text: "", status: 'send', id: '1', name: '22'},
+        {img: [1], text: "", status: 'pending', id: '1', name: '22'},
+    ])
+
+    setListArr(msList)
+
+    // 重新发送消息
+    const handleResend = (data) => {
+        console.log(data)
+        msList.pop();
+        // 重新执行 新增-发请求 这个流程
+    }
+
+    // 发送完消息后端要返回一个status，前端去处理消息列表
+
+    const rightTop = ref(null);
+
     onMounted(() => {
-        selectCheck()
+        // selectCheck()
+        rightTop.value.scrollTop = rightTop.value.scrollHeight;
     })
+
+    const handleEnterKey = () => {
+        textarea.value = "";
+        addListItem({
+            img: [],
+            text: textarea.value,
+            status: 'pending',
+            id: '1',
+            name: getName()
+        }, msList)
+
+        setTimeout(() => {
+            msList[msList.length - 1].status = 'send'
+        }, 3000)
+    }
+
+    // const messageObj = reactive({
+    //     img: [],
+    //     text: "",
+    //     status: 'pending'
+    // })
+    // const setMsg = (key, value) => {
+    //     messageObj[key] = value
+    //     messageObj.status = 'send'
+    // }
+    // const setStatus = (status)=> {
+    //     messageObj.status = status
+    //     if(status === 'pending') {
+    //         messageObj.img = [];
+    //         messageObj.text = [];
+    //     }
+    // }
+    // provide('ms-status', {
+    //     messageObj,
+    //     setMsg,
+    //     setStatus
+    // })
 
 </script>
 
 <template>
     <section class="msg-right">
-        <div class="r-top">
-            <!---  @contextmenu.prevent.capture="handleRightClick" -->
-            <p>哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈</p>
+        <div class="r-top" ref="rightTop">
+            <!-- <p>哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈</p>
             <p>哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈啊哈哈</p>
-            <p>s哈哈哈哈哈哈哈啊哈哈</p>
+            <p>s哈哈哈哈哈哈哈啊哈哈</p> -->
+            <template v-for="(item, index) in msList" :key="index">
+                <Ms :item="item" :name="getName()" @send="handleResend"></Ms>
+            </template>
         </div>
         <div class="text-bar" :style="{'visibility': showTextBar ? 'visible' : 'hidden'}">
             <p>{{ text }}</p>
         </div>
         <div class="r-bottom">
             <el-input v-model="textarea" placeholder="" autofocus resize="none" type="textarea" />
+            <el-button type="primary" round @click="handleEnterKey">fasong</el-button>
         </div>
     </section>
     <div class="fix-tip" v-show="showTip" :style="{'top': popupData.popupTop + 'px', 'left': popupData.popupLeft + 'px'}">
