@@ -26,7 +26,7 @@
         <router-link to="/home" custom v-slot="{ isActive, navigate }">
           <div :class="{ 'active': isActive, 'title': true, 'font-14': true }" @click="navigate">
             <el-icon class="icon">
-              <FolderOpened />
+              <FolderChecked />
             </el-icon>
             知识库
           </div>
@@ -37,6 +37,15 @@
               <Bell />
             </el-icon>
             通知
+            <span class="num" v-show="number > 0">{{ number }}</span>
+          </div>
+        </router-link>
+        <router-link to="/fileload" custom v-slot="{ isActive, navigate }">
+          <div :class="{ 'active': isActive, 'title': true, 'font-14': true }" @click="navigate">
+            <el-icon class="icon">
+              <Files />
+            </el-icon>
+            文件库
             <span class="num" v-show="number > 0">{{ number }}</span>
           </div>
         </router-link>

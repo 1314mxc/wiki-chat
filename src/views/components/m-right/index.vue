@@ -59,8 +59,8 @@
     const msList = reactive([
         {img: [1], text: "", status: 'send', id: '2', name: '33'},
         {img: [], text: "这是测试？", status: 'send', id: '2', name: '33'},
-        {img: [1,1,1], text: "", status: 'send', id: '1', name: '22'},
-        {img: [1], text: "", status: 'pending', id: '1', name: '22'},
+        {img: [1,1,1], text: "", status: 'send', id: '1', name: '111'},
+        {img: [1], text: "", status: 'pending', id: '1', name: '111'},
     ])
 
     setListArr(msList)
@@ -81,19 +81,21 @@
         rightTop.value.scrollTop = rightTop.value.scrollHeight;
     })
 
-    const handleEnterKey = () => {
-        textarea.value = "";
-        addListItem({
-            img: [],
-            text: textarea.value,
-            status: 'pending',
-            id: '1',
-            name: getName()
-        }, msList)
+    const handleEnterKey = (event) => {
+        if(event.metaKey && event.key === 'Enter') {
+            textarea.value = "";
+            addListItem({
+                img: [],
+                text: textarea.value,
+                status: 'pending',
+                id: '1',
+                name: getName()
+            }, msList)
 
-        setTimeout(() => {
-            msList[msList.length - 1].status = 'send'
-        }, 3000)
+            setTimeout(() => {
+                msList[msList.length - 1].status = 'send'
+            }, 3000)
+        }
     }
 
     // const messageObj = reactive({
@@ -134,8 +136,8 @@
             <p>{{ text }}</p>
         </div>
         <div class="r-bottom">
-            <el-input v-model="textarea" placeholder="" autofocus resize="none" type="textarea" />
-            <el-button type="primary" round @click="handleEnterKey">fasong</el-button>
+            <el-input v-model="textarea" placeholder="command+回车键发送消息" autofocus resize="none" type="textarea" @keydown="handleEnterKey" />
+            <!-- <el-button type="primary" round @click="handleEnterKey">fasong</el-button> -->
         </div>
     </section>
     <div class="fix-tip" v-show="showTip" :style="{'top': popupData.popupTop + 'px', 'left': popupData.popupLeft + 'px'}">
@@ -155,12 +157,13 @@
             width: 100%;
             flex: 1;
             overflow-y: auto;
+            padding-top: 9px;
         }
 
         .text-bar {
             width: 100%;
             height: 21px;
-            background: red;
+            /* background: red; */
             padding: 4px 8px;
             white-space: nowrap;
             overflow: hidden;
@@ -180,7 +183,7 @@
         .r-bottom {
             width: 100%;
             height: 120px;
-            border-top: 1px solid green;
+            border-top: 1px solid #dfe1e5;
 
             .el-textarea {
                 height: 93%;
@@ -189,7 +192,7 @@
             .el-textarea__inner {
                 width: 100% !important;
                 height: 100% !important;
-                border: none !important;
+                box-shadow: none !important;
                 padding: 12px 8px;
                 outline: none !important;
             }
