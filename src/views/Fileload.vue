@@ -3,6 +3,7 @@
   import { getName } from '@/utils/auth'
 
   import filetable from './components/table/index.vue'
+  import fileupload from './components/upload/index.vue'
 
   const calendarDay = ref(new Date())
   const activeName = ref('1')
@@ -38,10 +39,15 @@
       <el-card class="box-card">
         <template #header>
           <div class="card-header">
-            <el-icon :size="16" color="#409EFC">
-              <SetUp />
-            </el-icon>
-            <span style="font-size: 14px;margin-left: 3px;font-weight: 800;">文件列表</span>
+            <div class="ch-left">
+              <el-icon :size="16" color="#409EFC">
+                <SetUp />
+              </el-icon>
+              <span style="font-size: 14px;margin-left: 3px;font-weight: 800;">文件列表</span>
+            </div>
+            <div class="ch-right">
+              <fileupload></fileupload>
+            </div>
           </div>
         </template>
         <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
@@ -82,7 +88,13 @@
 
       .card-header {
         display: flex;
+        justify-content: space-between;
         align-items: center;
+
+        .ch-left {
+          display: flex;
+          align-items: center;
+        }
       }
     }
 

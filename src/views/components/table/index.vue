@@ -16,6 +16,22 @@
     const changePage = (data) => {
         emit('pagecheck', data)
     }
+
+    const handleDelete = () => {
+        ElMessageBox.confirm(
+            '确认后不可恢复，是否删除?',
+            'Warning',
+            {
+                confirmButtonText: '删除',
+                cancelButtonText: '取消',
+                type: 'warning',
+            }
+        )
+            .then(() => {
+            })
+            .catch(() => {
+            })
+    }
 </script>
 
 <template>
@@ -29,18 +45,19 @@
             <el-table-column fixed="right" label="操作" width="120">
                 <template #default>
                     <el-button link type="primary" size="small" @click="handleDown">下载</el-button>
-                    <el-button link type="primary" size="small">删除</el-button>
+                    <el-button link type="primary" size="small" @click="handleDelete">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
-        <el-pagination style="margin-top: 8px;" layout="prev, pager, next" :total="tableData.length" :hide-on-single-page="true" @current-change="changePage" />
+        <el-pagination style="margin-top: 8px;" layout="prev, pager, next" :total="tableData.length"
+            :hide-on-single-page="true" @current-change="changePage" />
     </div>
 </template>
 
 <style lang="scss">
-.wj-table {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
+    .wj-table {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
 </style>

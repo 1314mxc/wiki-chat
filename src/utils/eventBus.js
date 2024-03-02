@@ -98,8 +98,8 @@ export class EventBus {
         // for (const callback of Object.values(callbackList)) {
         //     callback()
         // }
-        for (const [id, callback] in Object.entries(callbackList)) {
-            callback();
+        for (const [id, callback] of Object.entries(callbackList)) {
+            callback(...args);
             // 如果是只执行一次的订阅者 判断只订阅一次的回调函数要删除
             if (id.startsWith('one')) {
                 delete callbackList[id];
