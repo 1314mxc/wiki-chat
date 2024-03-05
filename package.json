@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
+    "@vueup/vue-quill": "^1.2.0",
     "electron-win-state": "^1.1.22",
     "element-plus": "^2.4.3",
     "got": "^11.8.5",

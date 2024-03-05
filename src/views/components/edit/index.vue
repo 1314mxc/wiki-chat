@@ -57,7 +57,6 @@
         align-items: flex-end;
         width: 100%;
         /* height: 94px; */
-        border: 1px solid red;
     }
 
     .text-content {

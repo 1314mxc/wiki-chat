@@ -1,20 +1,20 @@
 <script setup>
-  import { ref } from 'vue'
-  import { getName, removeToken } from '@/utils/auth'
+  import { ref, inject } from 'vue'
+  import { getName, removeToken, removeGroup } from '@/utils/auth'
   import { useRouter } from 'vue-router';
 
-    const router = useRouter();
+  const { item } = inject('send-message')
 
-  let showTip = ref(false)
+  const router = useRouter();
+
+  let number = ref(0)
+
+  number.value = Number(item.value) > 999 ? '999+' : Number(item.value)
 
   const checkTip = () => {
     removeToken()
-    showTip.value = !showTip.value;
+    removeGroup()
     router.push('/login')
-  }
-
-  const showCheck = () => {
-    showTip.value = !showTip.value;
   }
 
 </script>
@@ -24,31 +24,62 @@
     <div class="header-container">
       <div class="router">
         <router-link to="/home" custom v-slot="{ isActive, navigate }">
-          <div :class="{ 'active': isActive, 'title': true }" @click="navigate">
+          <div :class="{ 'active': isActive, 'title': true, 'font-14': true }" @click="navigate">
             <el-icon class="icon">
-              <FolderOpened />
+              <FolderChecked />
             </el-icon>
             知识库
           </div>
         </router-link>
+        <router-link to="/message" custom v-slot="{ isActive, navigate }">
+          <div :class="{ 'active': isActive, 'title': true, 'font-14': true }" @click="navigate">
+            <el-icon class="icon">
+              <Bell />
+            </el-icon>
+            通知
+            <span class="num" v-show="number > 0">{{ number }}</span>
+          </div>
+        </router-link>
+        <router-link to="/fileload" custom v-slot="{ isActive, navigate }">
+          <div :class="{ 'active': isActive, 'title': true, 'font-14': true }" @click="navigate">
+            <el-icon class="icon">
+              <Files />
+            </el-icon>
+            文件库
+            <span class="num" v-show="number > 0">{{ number }}</span>
+          </div>
+        </router-link>
         <router-link to="/imageGallery" custom v-slot="{ isActive, navigate }">
-          <div :class="{ 'active': isActive, 'title': true }" @click="navigate">
+          <div :class="{ 'active': isActive, 'title': true, 'font-14': true }" @click="navigate">
             <el-icon class="icon">
               <ChatDotRound />
             </el-icon>
-            信鸽
+            Chat
           </div>
         </router-link>
       </div>
       <div class="setting">
-        <el-icon class="setting-i" @click="showCheck">
-          <Setting />
-        </el-icon>
+        <router-link to="/setting" custom v-slot="{ isActive, navigate }">
+          <div :class="{ 'active': isActive, 'title': true, 'font-14': true }" @click="navigate">
+            <el-icon class="icon">
+              <Setting />
+            </el-icon>
+            配置中心
+          </div>
+        </router-link>
+        <div :class="{ 'title': true, 'font-14': true }">
+          <div class="name-i">{{ getName().slice(0, 1) }}</div>
+          {{ getName() }}
+        </div>
+        <div :class="{ 'title': true, 'font-14': true }" @click="checkTip">
+          <el-icon class="icon">
+            <SwitchButton />
+          </el-icon>
+          退出
+        </div>
+        <!-- <div style="line-height: 32px;">{{ getName() }}</div>background-color: #009cad;
+        <div class="ft-item" @click="checkTip">登出</div> -->
       </div>
-    </div>
-    <div class="set-tip" v-show="showTip">
-      <div class="ft-item">{{ getName() }}</div>
-      <div class="ft-item" @click="checkTip">登出</div>
     </div>
   </div>
 </template>
@@ -57,7 +88,7 @@
   .header-box {
     width: 100%;
     height: 100vh;
-    background: #409eff;
+    /* background: #409eff; */
   }
 
   .header-container {
@@ -67,7 +98,8 @@
     /* background: #1e90ff; */
     width: 120px;
     height: 100vh;
-    padding-top: 3px;
+    border-right: 1px solid #dfe1e5;
+    user-select: none;
 
     .router {
       display: flex;
@@ -76,16 +108,29 @@
     }
 
     .title {
-      height: 42px;
-      line-height: 42px;
-      padding: 8px 12px 0;
+      position: relative;
+      height: 36px;
+      line-height: 36px;
+      padding: 6px 12px 0;
       display: flex;
       align-items: center;
-      color: #ccc;
       cursor: pointer;
 
       &.active {
-        color: #fff;
+        color: #409eff;
+        background-color: #F0F6FF;
+      }
+
+      .num {
+        position: absolute;
+        top: 8px;
+        left: 55%;
+        font-size: 11px;
+        border-radius: 5px;
+        background-color: red;
+        /* height: 11px; */
+        line-height: 12px;
+        padding: 1px 3px;
       }
 
       .icon {
@@ -99,13 +144,37 @@
 
     .setting {
       display: flex;
+      flex-direction: column;
+      /* padding: 8px 0 0; */
+      /* color: white; */
 
-      .setting-i {
-        width: 22px;
+      .name-i {
+        position: relative;
         color: white;
-        margin-left: 12px;
-        margin-bottom: 8px;
-        cursor: pointer;
+        font-size: 10px;
+        width: 16px;
+        text-align: center;
+        margin-right: 4px;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 9px;
+          right: 0px;
+          bottom: 10px;
+          left: 0px;
+          background-color: #009cad;
+          z-index: -1;
+          border-radius: 14px;
+        }
+      }
+
+      .ft-item {
+
+        &:hover {
+          opacity: .5;
+          cursor: pointer;
+        }
       }
     }
 
@@ -130,9 +199,9 @@
       padding: 6px 2px;
       border-radius: 4px;
       margin-top: 2px;
-      
+
       &:not(:last-of-type) {
-        border-bottom: 1px solid rgba(0,0,0,.1);
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
       }
 
       &:hover {

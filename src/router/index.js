@@ -29,6 +29,24 @@ const routes = [
         name: 'imageGallery',
         // component: ImageGallery
         component: () => import('@/views/ImageGallery.vue')
+      },
+      {
+        path: '/message', // 消息
+        name: 'message',
+        // component: ImageGallery
+        component: () => import('@/views/Message.vue')
+      },
+      {
+        path: '/fileload', // 文件
+        name: 'fileload',
+        // component: ImageGallery
+        component: () => import('@/views/Fileload.vue')
+      },
+      {
+        path: '/setting', // 配置中心
+        name: 'setting',
+        // component: ImageGallery
+        component: () => import('@/views/Setting.vue')
       }
     ]
   },

@@ -14,6 +14,20 @@ export function removeToken() {
   return Cookies.remove(TokenKey)
 }
 
+const GroupKey = 'chat_group'
+
+export function getGroup() {
+  return Cookies.get(GroupKey)
+}
+
+export function setGroup(token) {
+  return Cookies.set(GroupKey, token)
+}
+
+export function removeGroup() {
+  return Cookies.remove(GroupKey)
+}
+
 const NameKey = 'template_name'
 
 export function getName() {

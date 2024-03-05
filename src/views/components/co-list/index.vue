@@ -102,19 +102,19 @@
         <template v-for="(item, index) in list" :key="index">
             <div class="text-item" >
                 <div class="line-1 line">
-                    <p class="item-name">{{ item.name }}: </p>
+                    <p class="item-name font-16">{{ item.name }}: </p>
                 </div>
                 <div class="line-2 line col">
                     <div class="text-bar" v-if="item.quote.length">
-                        <p>{{ item.quote }}</p>
+                        <p class="font-12">{{ item.quote }}</p>
                     </div>
-                    <p class="item-text">{{ item.text }}</p>
+                    <p class="item-text font-14">{{ item.text }}</p>
                 </div>
                 <div class="line-3 line">
-                    <p class="item-time">{{ item.time }}</p>
-                    <el-button type="primary" link @click="handleAddEndorse(item)">赞同({{ item.endorse }})</el-button>
-                    <el-button type="primary" link @click="handleDelEndorse(index, -1)">删除</el-button>
-                    <el-button type="primary" link @click="handleReply(item)">回复</el-button>
+                    <p class="item-time font-11">{{ item.time }}</p>
+                    <el-button type="primary" class="font-12" link @click="handleAddEndorse(item)">赞同({{ item.endorse }})</el-button>
+                    <el-button type="primary" class="font-12" link @click="handleDelEndorse(index, -1)">删除</el-button>
+                    <el-button type="primary" class="font-12" link @click="handleReply(item)">回复</el-button>
                 </div>
                 <div class="input-item" v-show="item.showEdit">
                     <Edit @add="handleAddItem(index, item.name, $event, -1)"></Edit>
@@ -122,17 +122,17 @@
                 <template v-for="(citem, cindex) in item.children" :key="index">
                     <div class="child-item">
                         <div class="line-1 line">
-                            <p class="item-name">{{ citem.name }} 回复 {{ citem.parent }}: </p>
+                            <p class="item-name  font-16">{{ citem.name }} 回复 {{ citem.parent }}: </p>
                         </div>
                         <div class="line-2">
-                            <p class="item-text">{{ citem.text }}</p>
+                            <p class="item-text font-14">{{ citem.text }}</p>
                         </div>
                         <div class="line-3 line">
-                            <p class="item-time">{{ citem.time }}</p>
-                            <el-button type="primary" link @click="handleAddEndorse(citem)">赞同({{ citem.endorse
+                            <p class="item-time font-11">{{ citem.time }}</p>
+                            <el-button type="primary" class="font-12" link @click="handleAddEndorse(citem)">赞同({{ citem.endorse
                                 }})</el-button>
-                            <el-button type="primary" link @click="handleDelEndorse(cindex, index)">删除</el-button>
-                            <el-button type="primary" link @click="handleReply(citem)">回复</el-button>
+                            <el-button type="primary" class="font-12" link @click="handleDelEndorse(cindex, index)">删除</el-button>
+                            <el-button type="primary" class="font-12" link @click="handleReply(citem)">回复</el-button>
                         </div>
                         <div class="input-item" v-show="citem.showEdit">
                             <Edit @add="handleAddItem(cindex, citem.name, $event, index)"></Edit>
@@ -159,7 +159,7 @@
             border-bottom: 1px solid #f7f8fa;
 
             .child-item {
-                padding-left: 60px;
+                padding-left: 40px;
                 padding-top: 8px;
             }
 
@@ -175,20 +175,17 @@
             }
 
             .item-name {
-                font-size: 17px;
                 font-weight: 400;
                 color: #9a9a9a;
             }
 
             .item-time {
-                font-size: 13px;
                 color: #9a9a9a;
                 margin-right: 20px;
             }
 
             .item-text {
                 margin: 4px 0;
-                font-size: 17px;
             }
         }
     }

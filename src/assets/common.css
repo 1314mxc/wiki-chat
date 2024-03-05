@@ -5,3 +5,16 @@ html, body {
 * {
   box-sizing: border-box;
 }
+
+.font-11 {
+  font-size: 11px;
+}
+.font-12 {
+  font-size: 12px;
+}
+.font-14 {
+  font-size: 14px;
+}
+.font-16 {
+  font-size: 16px;
+}

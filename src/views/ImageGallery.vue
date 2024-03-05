@@ -27,7 +27,7 @@
       flex-shrink: 0;
       width: 15%;
       height: 100%;
-      border-right: 1px solid red;
+      border-right: 1px solid #dfe1e5;
 
       p {
         padding-left: 6px;
