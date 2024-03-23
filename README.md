@@ -26,6 +26,22 @@ npm start
 
 本应用支持热更新，不必执行其他指令。
 
+
+# 目录
+
+从上到下（如无说明则第一版前端部分暂时已完成）：
+
+ - Editor.vue：编辑器（write）页面
+ - Fileload.vue：文件预览和上传页面
+ - Header.vue：侧边栏
+ - Home.vue：登录后的总览页面（前端部分还差：wikiGroup组件中完成wiki组和wiki部分（一层），“r-top”中完成wiki展示部分（结合url中id））
+ - ImageGallery.vue：聊天室页面
+ - Index.vue：包含登录页的总览页面
+ - Login.vue：登录页面
+ - Message.vue：消息通知页面
+ - Setting.vue：设置页面
+
+
 git指令：
 
 ```

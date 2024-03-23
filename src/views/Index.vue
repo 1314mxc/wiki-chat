@@ -1,5 +1,6 @@
 <script setup>
-    import { provide, inject, ref, reactive, onMounted } from 'vue'
+    import { provide, inject, ref, reactive, onMounted, watch } from 'vue'
+    import { useRoute } from 'vue-router'
     import Header from './Header.vue'
     import Login from './Login.vue'
 
@@ -12,6 +13,9 @@
     console.log(data)
 
     const token = localStorage.getItem('token') || false
+
+    let cLeft = ref(127)
+    const route = useRoute()
 
     // provide + reject 实现：Home页面选中文字后“发送到聊天框”功能
     const text = ref('')
@@ -26,7 +30,7 @@
     const item = ref(0)
     const plList = reactive({})
 
-    if(data.type && data.type === 'message') {
+    if (data.type && data.type === 'message') {
         item.value = 1;
         plList = data.data;
     }
@@ -47,12 +51,29 @@
         clearListObj
     })
 
+    watch(
+        () => route,
+        (val, preVal) => {
+            if(val.name === 'editor') {
+                cLeft.value = 0
+            }else {
+                cLeft.value = 127
+            }
+        },
+        {
+            immediate: true,
+            //这个参数代表监听对象时，可以监听深度嵌套的对象属性
+            //比如message是一个对象的话，可以监听到message.a.b.c，也就是message下的所有属性
+            deep: true,
+        }
+    )
+
 </script>
 
 <template>
     <section class="box">
         <Header></Header>
-        <section class="content">
+        <section class="content" :style="{'left': cLeft + 'px'}">
             <router-view></router-view>
         </section>
     </section>
@@ -68,7 +89,7 @@
         .content {
             position: absolute;
             top: 0;
-            left: 127px;
+            /* left: 127px; */
             right: 0;
             bottom: 0;
             background-color: white;

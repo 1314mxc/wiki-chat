@@ -25,6 +25,13 @@ const routes = [
         component: Home
       },
       {
+        path: '/editor', // 编辑器, Editor.vue是编辑器页面，home中的那个板块只用来展示
+        name: 'editor',
+        hidden: true,
+        // component: ImageGallery
+        component: () => import('@/views/Editor.vue')
+      },
+      {
         path: '/imageGallery', // 聊天
         name: 'imageGallery',
         // component: ImageGallery

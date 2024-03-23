@@ -21,7 +21,8 @@ export class EventBus {
             this.maxListeners !== Infinity &&
             Object.keys(this.eventMap[eventName]).length >= this.maxListeners
         ) {
-            console.warn(`该事件${eventName}超过了最大监听数`);
+            console.warn(`事件${eventName}超过了最大监听数`);
+            return;
         }
         // 以下原始订阅部分要做修改，因为存储结构从普通对象调整
         // ====> 修改前代码
@@ -73,7 +74,7 @@ export class EventBus {
      */
     emit(eventName, ...args) {
         if (!Reflect.has(this.eventMap, eventName)) {
-            console.warn(`从未订阅过此事件${eventName}`);
+            console.warn(`从未订阅过事件${eventName}`);
             return;
         }
         const callbackList = this.eventMap[eventName];
@@ -90,7 +91,7 @@ export class EventBus {
         //   }
         // }
         if (Object.keys(callbackList).length === 0) {
-            console.warn(`该事件${eventName}下无可执行的订阅者`);
+            console.warn(`事件${eventName}下无可执行的订阅者`);
             return;
         }
 
@@ -105,6 +106,7 @@ export class EventBus {
                 delete callbackList[id];
             }
         }
+        return this;
     }
     /**
      * 清空某个事件名称下所有回调函数
@@ -118,11 +120,13 @@ export class EventBus {
         }
         // delete this.eventMap[eventName];
         Reflect.deleteProperty(this.eventMap, eventName);
+        return this;
     }
     /**
      * 清空事件监听函数
      */
     clearAll() {
         this.eventMap = {};
+        return this;
     }
 }

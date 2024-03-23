@@ -218,7 +218,7 @@
                     </el-upload>
                     <div class="bbq"></div>
                 </el-form-item>
-                <el-form-item label="关联文件" :label-width="formLabelWidth">
+                <el-form-item label="关联wiki" :label-width="formLabelWidth">
                     <el-select v-model="form.region" placeholder="Please select a wiki">
                         <el-option label="Zone No.1" value="shanghai" />
                         <el-option label="Zone No.2" value="beijing" />

@@ -14,7 +14,7 @@
                     <p class="font-14">面容安全认证:</p>
                 </div>
                 <div class="l-right">
-                    <el-checkbox class="font-14" style="height: 18px;" v-model="checkedm">是否开启</el-checkbox>
+                    <el-checkbox class="font-14" style="height: 18px;" v-model="checkedm" disabled>是否开启</el-checkbox>
                     <p class="font-11 desc">如果开启，需要录入面容并进入数据库匹配认证（首次录入不认证），当在此网页中按下键盘ctrl+q的时候，网页内容会被遮挡，隐私更安全！离开也放心～</p>
                 </div>
             </div>
