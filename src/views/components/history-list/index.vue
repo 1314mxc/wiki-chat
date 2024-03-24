@@ -15,7 +15,7 @@
 
 <template>
     <div class="history-list">
-        <template v-for="(item, index) in list">
+        <div v-for="(item, index) in list" :key="index">
             <div class="text-item">
                 <div class="line-1 line">
                     <p class="item-name" v-if="item.status=='create'"><span class="name">{{ item.name }}</span> 发布了页面</p>
@@ -25,7 +25,7 @@
                     <p class="item-time">{{ item.time }}</p>
                 </div>
             </div>
-        </template>
+        </div>
     </div>
 </template>
 

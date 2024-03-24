@@ -13,10 +13,10 @@
     }
 
     // 文件相关
-    const loading = ref(false)
-    const hash = ref('')
-    const chunkList = reactive([])
-    const name = ref('')
+    let loading = ref(false)
+    let hash = ref('')
+    let chunkList = reactive([])
+    let name = ref('')
 
     const beforeUpload = async (file) => {
         loading.value = true;
@@ -73,7 +73,7 @@
 
         // 将文件按固定大小（1M）进行切片，注意此处同时声明了多个常量
         const chunkSize = 2097152, //1048576 2097152
-            chunkList = [], // 保存所有切片的数组
+            _chunkList = [], // 保存所有切片的数组
             chunkListLength = Math.ceil(fileObj.size / chunkSize) // 计算总共多个切片
 
         // 携带md5，校验是否有改动
@@ -94,7 +94,7 @@
                         chunk: fileObj.slice(curChunk, curChunk + chunkSize)
                     }
                     curChunk += chunkSize
-                    chunkList.push(item)
+                    _chunkList.push(item)
                 }
 
             } else if (Number(checkRes.data.next) >= 0) {
@@ -107,7 +107,7 @@
                         chunk: fileObj.slice(curChunk, curChunk + chunkSize)
                     }
                     curChunk += chunkSize
-                    chunkList.push(item)
+                    _chunkList.push(item)
                 }
 
             } else {
@@ -115,9 +115,9 @@
                 return;
             }
 
-            chunkList = chunkList // sendRequest 要用到
+            chunkList = _chunkList // sendRequest 要用到
             hash.value = hash // sendRequest 要用到
-            sendRequest(chunkList, hash)
+            sendRequest(_chunkList, hash)
         }
     }
 

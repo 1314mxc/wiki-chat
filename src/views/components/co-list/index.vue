@@ -99,8 +99,8 @@
 
 <template>
     <div class="text-list">
-        <template v-for="(item, index) in list">
-            <div class="text-item">
+        <template v-for="(item, index) in list" :key="index">
+            <div class="text-item" >
                 <div class="line-1 line">
                     <p class="item-name font-16">{{ item.name }}: </p>
                 </div>
@@ -119,7 +119,7 @@
                 <div class="input-item" v-show="item.showEdit">
                     <Edit @add="handleAddItem(index, item.name, $event, -1)"></Edit>
                 </div>
-                <template v-for="(citem, cindex) in item.children">
+                <template v-for="(citem, cindex) in item.children" :key="index">
                     <div class="child-item">
                         <div class="line-1 line">
                             <p class="item-name  font-16">{{ citem.name }} 回复 {{ citem.parent }}: </p>

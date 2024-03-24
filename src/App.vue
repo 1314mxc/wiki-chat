@@ -12,7 +12,6 @@
     //     setList
     // })
 </script>
-
 <template>
     <section>
         <router-view></router-view>

@@ -1,5 +1,6 @@
 <script setup>
     import { reactive, onMounted, ref } from 'vue'
+    import documentList from '../document-list/index.vue'
 
     import { useRouter } from 'vue-router'
     const router = useRouter()
@@ -26,9 +27,7 @@
             loading.value = true
             setTimeout(() => {
                 loading.value = false
-                options = list.value.filter((item) => {
-                    return item.label.toLowerCase().includes(query.toLowerCase())
-                })
+                console.log(options, query)
             }, 200)
         } else {
             options = []
@@ -44,7 +43,7 @@
     <section class="wiki-list">
         <div class="top">
             <el-select v-model="value" multiple filterable remote reserve-keyword placeholder=""
-                :remote-method="remoteMethod" :loading="loading">
+                :remote-method="remoteMethod" :loading="loading" style="width: 139px;">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
             <div class="icon-box" title="新建wiki协同页面" @click="goEditor">
@@ -53,7 +52,7 @@
                 </el-icon>
             </div>
         </div>
-        <div></div>
+        <document-list></document-list>
     </section>
 </template>
 

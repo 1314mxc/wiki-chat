@@ -27,8 +27,8 @@
         setText
     })
 
-    const item = ref(0)
-    const plList = reactive({})
+    let item = ref(0)
+    let plList = reactive({})
 
     if (data.type && data.type === 'message') {
         item.value = 1;

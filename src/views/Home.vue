@@ -2,7 +2,7 @@
   import Edit from './components/edit/index.vue'
   import coList from './components/co-list/index.vue'
   import hList from './components/history-list/index.vue'
-  import wikiGroup from './components/w-group/index.vue'
+  import groupList from './components/w-group/index.vue'
 
   import { onMounted, ref, reactive, nextTick, inject } from 'vue'
   import { getName } from '@/utils/auth'
@@ -17,10 +17,9 @@
 
   let item = null
 
-  // created，判断url里是否有gId和pId，如果有，就要展示“对应的某篇wiki”
+  // created，判断url里是否有pId，如果有，就要展示“对应的某篇wiki”
   const currentURL = window.location.href;
   if (window.location.search.length) {
-    const gId = getParameterByName('gId', currentURL);
     const pId = getParameterByName('pId', currentURL);
     console.log(gId, pId)
   }
@@ -132,12 +131,14 @@
     <div class="left">
       <!-- 左侧是“分组”组件：显示组、添加组、组内添加/删除wiki -->
       <div style="width: 100%;height: 100%;">
-        <wikiGroup></wikiGroup>
+        <group-list></group-list>
       </div>
     </div>
     <div class="right" ref="rightSection" @scroll="handleScroll">
       <!-- 右侧是显示具体文本的区域，分为上下两部分：上部分是内容区域，下部分是评论框和评论、回复功能区域 -->
-      <div class="r-top" style="width: 100%;height: 1100px;">占位占位占位</div>
+      <div class="r-top" style="width: 100%;height: 1100px;">
+        占位
+      </div>
       <!-- 以下为：评论框和评论、回复功能区域。孟笑晨在写 -->
       <div class="r-bottom">
         <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
